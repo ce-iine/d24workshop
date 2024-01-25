@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Order Form</h2>
+
+    <form method="POST" data-th-action="@{/checkout}">
+        <table>
+            <div th:object="${order}">
+            <tr>
+                <td>Date: </td>
+                <td>
+                    <input type="date" name="date" data-th-field="*{date}">
+                </td>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>
+                    <!-- <input type="text" name="customerName" size="30" data-th-field="*{customerName}"> -->
+                    <select class="form-control" id="dropDownList" name="customerName">
+                        <option value="0">select option</option>
+                        <option th:each="option : ${names}" th:value="${option}" th:text="${option}" data-th-field="*{customerName}"></option>
+                    </select> 
+                </td> 
+            </tr>
+            <tr>
+                <td>Address: </td>
+                <td>
+                    <input type="text" name="shipAddress" size="30" data-th-field="*{shipAddress}">
+                </td>
+            </tr>
+            <tr>
+                <td>Notes: </td>
+                <td>
+                    <input type="text" name="notes" cols="30" rows="10" data-th-field="*{notes}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tax:
+                </td>
+                <td>
+                    <input type="number" name="tax" max="1" min="0.05" data-th-field="*{tax}">
+                </td>
+            </tr>
+        </div>
+        </table>
+        <button type="submit">Checkout</button>
+    </form>
+</body>
+</html>

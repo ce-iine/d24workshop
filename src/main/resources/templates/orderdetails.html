@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Add Product Details Form</h2>
+
+    <form method="POST" data-th-action="@{/order}">
+        <table>
+            <div th:object="${detail}">
+                <tr>
+                    <td>Product: </td>
+                    <td>
+                        <input type="text" name="product" data-th-field="*{product}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Unit Price: </td>
+                    <td>
+                        <input type="number" name="unitPrice" data-th-field="*{unitPrice}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Discount: </td>
+                    <td>
+                        <input type="number" name="discount" data-th-field="*{discount}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quantity: </td>
+                    <td>
+                        <input type="number" name="quantity" data-th-field="*{quantity}">
+                    </td>
+                </tr>
+            </div>
+            </div>
+        </table>
+        
+        <button type="submit">Add to Order</button>
+    </form>
+    <button type="button">
+        <a data-th-href="@{/checkoutpage}">Checkout</a>
+    </button>
+
+    <div data-th-if="${#lists.isEmpty(orderDetails)}">
+        <h3>Your cart is empty</h3>
+    </div>
+    <div data-th-unless="${#lists.isEmpty(orderDetails)}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-th-each="product: ${orderDetails}">
+                    <td>
+                        <span data-th-text="${product.product}"></span>
+                    </td>
+                    <td>
+                        <span data-th-text="${product.quantity}"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</body>
+
+</html>
